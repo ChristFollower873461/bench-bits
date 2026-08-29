@@ -1,0 +1,32 @@
+{
+  "pack": {
+    "name": "Bench Bits",
+    "tagline": "Tiny electronics for big reactions.",
+    "style": "Workbench Pop",
+    "gridSize": "regular",
+    "shippingPixels": 408,
+    "maximumBytes": 500000
+  },
+  "stickers": [
+    {"order": 1, "slug": "glow-up", "name": "Glow Up", "master": "bb_01_glow-up.png", "accessibilityLabel": "A bright red LED glowing with colorful light.", "subject": "Red through-hole LED with a cobalt and coral halo and one small spark", "meaning": "a great idea or success"},
+    {"order": 2, "slug": "resistance", "name": "Resistance", "master": "bb_02_resistance.png", "accessibilityLabel": "An axial resistor leaning into colorful current lines.", "subject": "Axial resistor leaning into animated current lines", "meaning": "hold up or push back"},
+    {"order": 3, "slug": "fully-charged", "name": "Fully Charged", "master": "bb_03_fully-charged.png", "accessibilityLabel": "A generic battery with four brightly glowing cells.", "subject": "Generic four-cell battery glowing at full charge", "meaning": "energized and ready"},
+    {"order": 4, "slug": "low-power", "name": "Low Power", "master": "bb_04_low-power.png", "accessibilityLabel": "A generic battery with one dim remaining cell.", "subject": "Generic battery nearly empty with one dim remaining cell", "meaning": "tired or depleted"},
+    {"order": 5, "slug": "blown-fuse", "name": "Blown Fuse", "master": "bb_05_blown-fuse.png", "accessibilityLabel": "A glass fuse with a snapped filament and a curl of smoke.", "subject": "Glass cartridge fuse with a visibly snapped filament and small smoke curl", "meaning": "overwhelmed or done"},
+    {"order": 6, "slug": "flip-it-on", "name": "Flip It On", "master": "bb_06_flip-it-on.png", "accessibilityLabel": "A chunky toggle switch snapped into the on position.", "subject": "Chunky generic toggle switch decisively engaged", "meaning": "let us go"},
+    {"order": 7, "slug": "hard-reset", "name": "Hard Reset", "master": "bb_07_hard-reset.png", "accessibilityLabel": "A large tactile pushbutton being pressed.", "subject": "Oversized tactile pushbutton visibly depressed", "meaning": "start over"},
+    {"order": 8, "slug": "turn-it-up", "name": "Turn It Up", "master": "bb_08_turn-it-up.png", "accessibilityLabel": "A rotary potentiometer turned up with energetic motion marks.", "subject": "Rotary potentiometer twisted upward with motion marks", "meaning": "more excitement or intensity"},
+    {"order": 9, "slug": "connected", "name": "Connected", "master": "bb_09_connected.png", "accessibilityLabel": "Two colorful jumper leads connecting with a spark.", "subject": "Two generic jumper leads clicking together with one spark", "meaning": "agreement or connection"},
+    {"order": 10, "slug": "big-brain", "name": "Big Brain", "master": "bb_10_big-brain.png", "accessibilityLabel": "A generic DIP integrated circuit surrounded by glowing traces.", "subject": "Generic DIP integrated circuit with animated traces around its pins", "meaning": "a clever thought"},
+    {"order": 11, "slug": "tiny-brain", "name": "Tiny Brain", "master": "bb_11_tiny-brain.png", "accessibilityLabel": "A square microcontroller package with a pulsing circuit halo.", "subject": "Generic square QFP microcontroller package with a pulsing circuit halo", "meaning": "focused thinking"},
+    {"order": 12, "slug": "charged-up", "name": "Charged Up", "master": "bb_12_charged-up.png", "accessibilityLabel": "An electrolytic capacitor surrounded by colorful energy arcs.", "subject": "Electrolytic capacitor surrounded by stored-energy arcs", "meaning": "anticipation"},
+    {"order": 13, "slug": "one-way", "name": "One Way", "master": "bb_13_one-way.png", "accessibilityLabel": "A generic diode with a bright directional current trail.", "subject": "Generic diode with a clear directional current trail", "meaning": "direction or a boundary"},
+    {"order": 14, "slug": "relay-click", "name": "Relay Click", "master": "bb_14_relay-click.png", "accessibilityLabel": "A transparent relay with its internal contact closing.", "subject": "Transparent generic relay with its internal contact visibly closing", "meaning": "decision made"},
+    {"order": 15, "slug": "sound-the-alarm", "name": "Sound the Alarm", "master": "bb_15_sound-the-alarm.png", "accessibilityLabel": "A piezo buzzer sending out colorful sound rings.", "subject": "Piezo buzzer emitting concentric coral sound rings", "meaning": "pay attention"},
+    {"order": 16, "slug": "prototype", "name": "Prototype", "master": "bb_16_prototype.png", "accessibilityLabel": "A miniature breadboard with a tidy colorful jumper circuit.", "subject": "Mini generic breadboard with a tidy colorful jumper circuit", "meaning": "working on it"},
+    {"order": 17, "slug": "debugging", "name": "Debugging", "master": "bb_17_debugging.png", "accessibilityLabel": "Crossed multimeter probes touching a small generic circuit board.", "subject": "Crossed multimeter probes touching a small unbranded circuit board", "meaning": "investigating a problem"},
+    {"order": 18, "slug": "soldered", "name": "Soldered", "master": "bb_18_soldered.png", "accessibilityLabel": "A soldering iron lifting from a shiny finished joint.", "subject": "Soldering iron lifting from a perfect shiny solder joint", "meaning": "committed or complete"},
+    {"order": 19, "slug": "magic-smoke", "name": "Magic Smoke", "master": "bb_19_magic-smoke.png", "accessibilityLabel": "A small transistor releasing a dramatic curl of smoke.", "subject": "Generic TO-92 transistor releasing a dramatic smoke spiral", "meaning": "broken"},
+    {"order": 20, "slug": "full-send", "name": "Full Send", "master": "bb_20_full-send.png", "accessibilityLabel": "A tiny electric motor spinning with energetic motion trails.", "subject": "Tiny generic DC motor spinning with energetic motion trails", "meaning": "full momentum"}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "info": {
+    "author": "xcode",
+    "version": 1
+  },
+  "properties": {
+    "accessibility-label": "A bright red LED glowing with colorful light.",
+    "filename": "bb_01_glow-up.png"
+  }
+}

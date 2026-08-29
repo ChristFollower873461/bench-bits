@@ -1,0 +1,10 @@
+{
+  "info": {
+    "author": "xcode",
+    "version": 1
+  },
+  "properties": {
+    "accessibility-label": "A generic diode with a bright directional current trail.",
+    "filename": "bb_13_one-way.png"
+  }
+}

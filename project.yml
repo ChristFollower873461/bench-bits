@@ -1,0 +1,81 @@
+name: BenchBits
+
+options:
+  minimumXcodeGenVersion: 2.46.0
+  createIntermediateGroups: true
+  developmentLanguage: en
+  xcodeVersion: "2600"
+  deploymentTarget:
+    iOS: "15.0"
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 0.1.0
+    TARGETED_DEVICE_FAMILY: "1,2"
+    SUPPORTS_MACCATALYST: NO
+
+targets:
+  BenchBits:
+    type: application.messages
+    platform: iOS
+    sources:
+      - path: BenchBits/Assets.xcassets
+        buildPhase: resources
+      - path: BenchBits/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    info:
+      path: BenchBits/Info.plist
+      properties:
+        CFBundleDisplayName: Bench Bits
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dreammanifold.benchbits
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: NO
+    dependencies:
+      - target: BenchBitsStickerPack
+    scheme: {}
+
+  BenchBitsStickerPack:
+    type: app-extension.messages-sticker-pack
+    platform: iOS
+    sources:
+      - path: BenchBitsStickerPack/Stickers.xcstickers
+        buildPhase: resources
+    info:
+      path: BenchBitsStickerPack/Info.plist
+      properties:
+        CFBundleDisplayName: Bench Bits
+        CFBundlePackageType: XPC!
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.message-payload-provider
+          NSExtensionPrincipalClass: StickerBrowserViewController
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dreammanifold.benchbits.stickers
+        ASSETCATALOG_COMPILER_APPICON_NAME: iMessage App Icon
+        ASSETCATALOG_COMPILER_STICKER_PACK_IDENTIFIER_PREFIX: "$(PRODUCT_BUNDLE_IDENTIFIER).sticker-pack."
+        APPLICATION_EXTENSION_API_ONLY: YES
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: YES

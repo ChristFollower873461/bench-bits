@@ -1,0 +1,71 @@
+{
+  "info": {
+    "author": "xcode",
+    "version": 1
+  },
+  "properties": {
+    "grid-size": "regular"
+  },
+  "stickers": [
+    {
+      "filename": "01-glow-up.sticker"
+    },
+    {
+      "filename": "02-resistance.sticker"
+    },
+    {
+      "filename": "03-fully-charged.sticker"
+    },
+    {
+      "filename": "04-low-power.sticker"
+    },
+    {
+      "filename": "05-blown-fuse.sticker"
+    },
+    {
+      "filename": "06-flip-it-on.sticker"
+    },
+    {
+      "filename": "07-hard-reset.sticker"
+    },
+    {
+      "filename": "08-turn-it-up.sticker"
+    },
+    {
+      "filename": "09-connected.sticker"
+    },
+    {
+      "filename": "10-big-brain.sticker"
+    },
+    {
+      "filename": "11-tiny-brain.sticker"
+    },
+    {
+      "filename": "12-charged-up.sticker"
+    },
+    {
+      "filename": "13-one-way.sticker"
+    },
+    {
+      "filename": "14-relay-click.sticker"
+    },
+    {
+      "filename": "15-sound-the-alarm.sticker"
+    },
+    {
+      "filename": "16-prototype.sticker"
+    },
+    {
+      "filename": "17-debugging.sticker"
+    },
+    {
+      "filename": "18-soldered.sticker"
+    },
+    {
+      "filename": "19-magic-smoke.sticker"
+    },
+    {
+      "filename": "20-full-send.sticker"
+    }
+  ]
+}
