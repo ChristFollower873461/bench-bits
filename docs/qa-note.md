@@ -55,3 +55,26 @@ The first hosted QA run failed the exact generated-asset drift check before reac
 The icon-only generator path unnecessarily converted the already opaque PNG master through JPEG and back before resizing. It now resizes the original PNG directly and explicitly rejects an icon master with an alpha channel. The 13 icons were deliberately regenerated; the artwork master, crop geometry, catalog metadata and exact byte drift gate remain unchanged. This removes the unnecessary lossy intermediate without introducing a pixel tolerance.
 
 Two consecutive local `./scripts/qa.sh --allow-missing-xcode` runs passed after regeneration, including exact asset/project reproduction and all existing image/plist checks. A synthetic alpha-bearing master was rejected as intended. The regenerated host and smallest Messages icon retain the same composition in visual review. Both local compile checks were explicitly skipped; a new hosted default QA run must still establish cross-machine reproduction and successful unsigned compilation.
+
+## Host icon schema and unsigned compilation — 2026-09-05
+
+The [next hosted run](https://github.com/ChristFollower873461/bench-bits/actions/runs/33964834373) passed exact asset/project reproduction and all image/plist checks. Its Debug Simulator build then failed because `actool` found no applicable content in the host `AppIcon` catalog. The sticker extension's assets had compiled successfully.
+
+Xcode 26.6 is available locally at `/Applications/Xcode.app`, with iOS and iOS Simulator 26.5 SDKs. The earlier September 5 structural-only runs used the Command Line Tools selection; that selection did not establish that Xcode was absent. The August 29 entries above remain historical records.
+
+A disposable local comparison used the same host-app `actool` options and identical PNG bytes. The existing universal iOS 1024×1024 entry with `scale: 1x` reproduced the failure. Removing only that scale field compiled successfully. The generator and checked-in catalog now omit it, matching Xcode's single-size iOS icon template. Apple documents automatic variant generation from one 1024×1024 image in [its app-icon guide](https://developer.apple.com/documentation/xcode/configuring-your-app-icon/).
+
+```bash
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer ./scripts/qa.sh
+```
+
+This default QA command passed locally with Xcode 26.6 (17F113) and XcodeGen 2.46.0:
+
+- Exact generated-asset and project reproduction, all 20 sticker/13 icon checks, and plist validation passed.
+- Debug generic iOS Simulator build passed.
+- Unsigned Release generic iOS-device build passed.
+- All 33 generated PNGs remained byte-for-byte unchanged by the metadata correction and QA run.
+
+Neither compile was skipped. Both used `CODE_SIGNING_ALLOWED=NO`; no device was installed or launched, and no signing, account, archive, TestFlight, or App Store action occurred. The system-wide `xcode-select` setting remains Command Line Tools. The QA diagnostic now describes an unusable selected toolchain instead of inferring that no Xcode installation exists.
+
+The compiler still reports a host launch-configuration/storyboard warning. Successful unsigned compilation does not close that distribution concern or the Messages interaction, signing, and TestFlight gaps above. The unsigned compile gap is now closed locally; hosted confirmation of this metadata repair is a separate result.

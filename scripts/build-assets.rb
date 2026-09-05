@@ -183,7 +183,6 @@ if File.exist?(ICON_MASTER)
             "filename" => "AppIcon-1024.png",
             "idiom" => "universal",
             "platform" => "ios",
-            "scale" => "1x",
             "size" => "1024x1024"
           }
         ],
