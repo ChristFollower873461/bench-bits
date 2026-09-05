@@ -45,4 +45,19 @@ jobs:
           xcrun --sdk iphoneos --show-sdk-version
           xcrun --sdk iphonesimulator --show-sdk-version
       - name: Check assets, project drift and unsigned builds
+        id: qa
         run: ./scripts/qa.sh
+      - name: Preserve generated asset failure evidence
+        if: failure() && steps.qa.outcome == 'failure'
+        run: |
+          sips --version
+          git diff --name-status -- BenchBits/Assets.xcassets BenchBitsStickerPack/Stickers.xcstickers
+          git diff --binary -- BenchBits/Assets.xcassets BenchBitsStickerPack/Stickers.xcstickers > "$RUNNER_TEMP/bench-generated-assets.patch"
+      - name: Upload generated asset failure evidence
+        if: failure() && steps.qa.outcome == 'failure'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bench-generated-assets-diff
+          path: ${{ runner.temp }}/bench-generated-assets.patch
+          retention-days: 1
+          if-no-files-found: error
