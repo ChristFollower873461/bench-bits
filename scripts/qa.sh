@@ -41,9 +41,9 @@ if xcodebuild -version >/dev/null 2>&1; then
     clean build
 else
   if [[ "$allow_missing_xcode" == true ]]; then
-    print -u2 -- 'SKIP: Full Xcode/iOS SDK is not installed; Debug Simulator and unsigned Release device builds were not run.'
+    print -u2 -- 'SKIP: Selected developer tools cannot run xcodebuild; Debug Simulator and unsigned Release device builds were not run.'
   else
-    print -u2 -- 'FAIL: Full Xcode/iOS SDK is required. Use --allow-missing-xcode only for structural QA.'
+    print -u2 -- 'FAIL: A usable Xcode/iOS SDK selection is required. Set DEVELOPER_DIR or select Xcode; use --allow-missing-xcode only for structural QA.'
     exit 1
   fi
 fi

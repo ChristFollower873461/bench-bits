@@ -133,6 +133,10 @@ messages_icon_slots = [
 ].freeze
 
 if File.exist?(ICON_MASTER)
+  unless image_properties(ICON_MASTER)[:has_alpha] == "no"
+    abort("Icon master must not contain an alpha channel: #{ICON_MASTER}")
+  end
+
   FileUtils.mkdir_p(MESSAGES_ICON_DIR)
   FileUtils.mkdir_p(APP_ICON_DIR)
   # The host AppIcon catalog owns the square 1024 marketing icon. The Messages
@@ -147,17 +151,13 @@ if File.exist?(ICON_MASTER)
   end
 
   Dir.mktmpdir("bench-bits-icons") do |temporary_dir|
-    jpeg = File.join(temporary_dir, "opaque.jpg")
-    opaque_source = File.join(temporary_dir, "opaque-source.png")
     opaque_square = File.join(temporary_dir, "opaque-square.png")
     opaque_wide = File.join(temporary_dir, "opaque-wide.png")
 
-    # A JPEG round-trip guarantees the shipping icon files contain no alpha channel.
-    run!("sips", "-s", "format", "jpeg", "-s", "formatOptions", "100", ICON_MASTER, "--out", jpeg)
-    run!("sips", "-s", "format", "png", jpeg, "--out", opaque_source)
+    # Avoid a lossy JPEG intermediate; the source PNG is already opaque.
     # Normalize to 1024 square before taking the 1024×768 Messages crop.
     # Cropping the larger generated master directly would remove too much vertically.
-    resize_png(opaque_source, opaque_square, 1024, 1024)
+    resize_png(ICON_MASTER, opaque_square, 1024, 1024)
     run!("sips", "--cropToHeightWidth", "768", "1024", opaque_square, "--out", opaque_wide)
 
     messages_images = messages_icon_slots.map do |filename, idiom, size, scale, platform, width, height, shape|
@@ -183,7 +183,6 @@ if File.exist?(ICON_MASTER)
             "filename" => "AppIcon-1024.png",
             "idiom" => "universal",
             "platform" => "ios",
-            "scale" => "1x",
             "size" => "1024x1024"
           }
         ],

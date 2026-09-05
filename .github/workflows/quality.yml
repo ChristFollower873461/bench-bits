@@ -1,0 +1,63 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: Assets and unsigned iOS builds
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+      HOMEBREW_NO_ANALYTICS: "1"
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install asset validation utilities
+        run: brew install ffmpeg ripgrep
+      - name: Install verified XcodeGen 2.46.0
+        env:
+          XCODEGEN_SHA256: 4d9e34b62172d645eed6457cac13fc222569974098ef4ee9c3368bedf0196806
+        run: |
+          curl --fail --location --silent --show-error \
+            https://github.com/yonaskolb/XcodeGen/releases/download/2.46.0/xcodegen.zip \
+            --output "$RUNNER_TEMP/xcodegen.zip"
+          printf '%s  %s\n' "$XCODEGEN_SHA256" "$RUNNER_TEMP/xcodegen.zip" | shasum -a 256 -c -
+          ditto -xk "$RUNNER_TEMP/xcodegen.zip" "$RUNNER_TEMP/bench-xcodegen"
+          echo "$RUNNER_TEMP/bench-xcodegen/xcodegen/bin" >> "$GITHUB_PATH"
+      - name: Verify installed toolchain
+        run: |
+          for tool in ruby jq sips plutil rg ffprobe xcodegen; do
+            command -v "$tool"
+          done
+          ruby --version
+          xcodegen --version
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          xcrun --sdk iphonesimulator --show-sdk-version
+      - name: Check assets, project drift and unsigned builds
+        id: qa
+        run: ./scripts/qa.sh
+      - name: Preserve generated asset failure evidence
+        if: failure() && steps.qa.outcome == 'failure'
+        run: |
+          sips --version
+          git diff --name-status -- BenchBits/Assets.xcassets BenchBitsStickerPack/Stickers.xcstickers
+          git diff --binary -- BenchBits/Assets.xcassets BenchBitsStickerPack/Stickers.xcstickers > "$RUNNER_TEMP/bench-generated-assets.patch"
+      - name: Upload generated asset failure evidence
+        if: failure() && steps.qa.outcome == 'failure'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bench-generated-assets-diff
+          path: ${{ runner.temp }}/bench-generated-assets.patch
+          retention-days: 1
+          if-no-files-found: error
