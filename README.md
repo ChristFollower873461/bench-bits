@@ -29,7 +29,7 @@ Bench Bits is currently available as a public Xcode source release. It is not ye
 - macOS with `zsh` and `sips`
 - Ruby 2.6 or newer
 - XcodeGen **2.46.0** (the generated project drift check intentionally pins this version)
-- `jq`
+- `jq` and ripgrep (`rg`)
 - FFmpeg/`ffprobe` for deterministic transparency checks and the optional contact sheet
 - Stable Xcode 26 or newer with an iOS platform installed for compile, Simulator, device, archive, and upload checks
 
@@ -46,6 +46,8 @@ xcodegen generate
 ```
 
 The asset builder converts the masters into Apple’s regular sticker size, writes the asset-catalog metadata and icon renditions, and preserves the original masters. The QA pipeline fails if generated catalogs or the Xcode project were stale. Full compile, Simulator, device, archive, and TestFlight checks require Xcode 26 or newer.
+
+GitHub Actions runs `./scripts/qa.sh` for pull requests and main pushes using Xcode 26.6 and checksum-verified XcodeGen 2.46.0. It checks generated assets and project drift, then builds Debug for the iOS Simulator and unsigned Release for the device SDK. This does not install the pack in Messages or establish signing, TestFlight, or App Store readiness.
 
 ## Art direction
 

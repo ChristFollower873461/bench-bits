@@ -41,4 +41,9 @@ The app icon’s initial 4:3 crop was rejected because it clipped the LED. The m
 - Test in Messages on iPhone and iPad, including tap-to-send, peel, resize, rotate, pack order, transparency, light/dark/photo backgrounds, and icon rendering.
 - Create and validate a signed archive, then test the processed build through TestFlight.
 - Finish the product decisions and App Store materials in `docs/release-checklist.md`.
-- This new project directory is currently untracked in the enclosing workspace Git repository; establish the intended repository/baseline before release work.
+
+## Repository baseline update — 2026-09-05
+
+The source is now tracked in the [public Bench Bits repository](https://github.com/ChristFollower873461/bench-bits), and [v0.1.0](https://github.com/ChristFollower873461/bench-bits/releases/tag/v0.1.0) is a published source release. This resolves the earlier repository-setup gap; the compile, device, signing, and distribution gaps above remain open.
+
+On September 5, `./scripts/qa.sh --allow-missing-xcode` passed all structural checks again with XcodeGen 2.46.0; both compile checks were explicitly skipped because this Mac still uses Command Line Tools. The new Quality workflow runs the default `./scripts/qa.sh` on a macOS 26 runner with Xcode 26.6 and the exact XcodeGen release. Missing Xcode or failed compilation fails CI; it does not use the structural-only flag. Hosted compile results must be recorded separately from this local result.
