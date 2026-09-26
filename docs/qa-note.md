@@ -1,8 +1,33 @@
 # Bench Bits v0.1 QA note
 
-Date: August 29, 2026
+Initial record: August 29, 2026. Current checkpoint: September 26, 2026.
 
-## Result
+## Current checkpoint — 2026-09-26
+
+The launch-configuration warning is resolved. [PR #2](https://github.com/ChristFollower873461/bench-bits/pull/2) added the host launch-screen configuration, and adopted main `9d77b36c12db8ee2d994d57dbd399a49a703849b` has a [passing Quality run](https://github.com/ChristFollower873461/bench-bits/actions/runs/36242142267) with zero annotations. The strict generated-asset/project checks and unsigned builds remain accepted.
+
+A separate Debug Simulator build using Xcode 27.0 (27A266a) completed with zero warnings. Its source tree matches that adopted main commit. Bounded runtime checks on iOS/iPadOS 26.5 (23F77) established:
+
+- The installed iPhone 17 Pro and iPad Pro 13-inch M5 copies match all 38 files of the reviewed build, with no extra files.
+- Messages discovers and renders the pack on both families. All 20 illustrations appear in source order across the settled iPad views.
+- An unsent motor preview on iPhone and transistor preview on iPad were inserted and removed. The two sampled accessible descriptions match source.
+- All 20 compiled descriptions and their order match source. This metadata check and the sampled descriptions do not establish audible VoiceOver acceptance.
+
+The source/build/installed-file comparison and retained rendering evidence passed independent review. Both task simulators were shut down after the check. No message was sent, real device installed, account signed in, or store upload performed.
+
+The recorded runtime result has SHA-256 `20836e72ecbac8852bd5684e1ee3bed68d4b1cbd895955c857da525ce99d91a3`; its separate independent review has SHA-256 `bd72914b9e977c40124d76b3b54e0aff62ee43dfa46ba8048cfe3e20ac479c88`. These are the September 26 `RUNTIME-RESULT.json` and `independent-runtime-review.json` receipts, respectively.
+
+Still required before release:
+
+- Current iOS/iPadOS and minimum iOS/iPadOS 15.0 runtime coverage; this checkpoint exercised 26.5 only.
+- Physical iPhone and iPad Messages checks, including send, peel, resize, rotate, light/dark/photo contrast, transparent edges, and icon locations.
+- Audible VoiceOver for all 20 stickers on both device families, consistent install/update discovery, and checks for unintended host UI.
+- Owner decisions on source/artwork reuse, title, publisher, final bundle identifiers, and signing identity.
+- Signed archive validation, processed TestFlight testing, and the applicable store materials and acceptance in [the release checklist](release-checklist.md).
+
+The dated entries below retain earlier findings. Their missing-toolchain, pending-build, and launch-warning statements describe those earlier checkpoints, not current blockers.
+
+## Initial result — 2026-08-29
 
 The no-code project, generated asset catalogs, 20-sticker launch set, host icon, and Messages icon set pass all checks available on this Mac. The project is structurally ready to open in Xcode. It is not release-certified yet because full Xcode and the iOS SDK are not installed on this machine.
 
@@ -77,4 +102,4 @@ This default QA command passed locally with Xcode 26.6 (17F113) and XcodeGen 2.4
 
 Neither compile was skipped. Both used `CODE_SIGNING_ALLOWED=NO`; no device was installed or launched, and no signing, account, archive, TestFlight, or App Store action occurred. The system-wide `xcode-select` setting remains Command Line Tools. The QA diagnostic now describes an unusable selected toolchain instead of inferring that no Xcode installation exists.
 
-The compiler still reports a host launch-configuration/storyboard warning. Successful unsigned compilation does not close that distribution concern or the Messages interaction, signing, and TestFlight gaps above. The unsigned compile gap is now closed locally; hosted confirmation of this metadata repair is a separate result.
+At this September 5 checkpoint, the compiler still reported a host launch-configuration/storyboard warning. The September 26 checkpoint above records its subsequent repair and bounded Simulator acceptance. Physical Messages interactions, signing, and TestFlight acceptance remain separate requirements.
