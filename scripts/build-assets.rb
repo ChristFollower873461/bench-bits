@@ -41,6 +41,11 @@ def run!(*command)
   abort("Command failed: #{command.join(" ")}")
 end
 
+def missing_master_message(paths)
+  "Missing #{paths.length} master asset#{paths.length == 1 ? "" : "s"}:\n" +
+    paths.map { |path| "  - #{path}" }.join("\n")
+end
+
 def image_properties(path)
   output = IO.popen(
     ["sips", "-g", "pixelWidth", "-g", "pixelHeight", "-g", "hasAlpha", path],
@@ -67,6 +72,13 @@ stickers = manifest.fetch("stickers").sort_by { |item| item.fetch("order") }
 shipping_pixels = pack.fetch("shippingPixels")
 maximum_bytes = pack.fetch("maximumBytes")
 missing = []
+
+# Strict generation must find every source before rewriting any shipping output.
+unless ALLOW_MISSING
+  master_paths = stickers.map { |item| File.join(MASTERS_DIR, item.fetch("master")) } + [ICON_MASTER]
+  missing_masters = master_paths.reject { |path| File.file?(path) }
+  abort(missing_master_message(missing_masters)) unless missing_masters.empty?
+end
 
 pack_entries = stickers.map do |item|
   order = item.fetch("order")
@@ -195,8 +207,7 @@ else
 end
 
 if missing.any?
-  message = "Missing #{missing.length} master asset#{missing.length == 1 ? "" : "s"}:\n" +
-            missing.map { |path| "  - #{path}" }.join("\n")
+  message = missing_master_message(missing)
   abort(message) unless ALLOW_MISSING
   warn(message)
 end

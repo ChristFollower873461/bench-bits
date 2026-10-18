@@ -7,6 +7,7 @@ cd "$project_root"
 allow_missing_xcode=false
 [[ "${1:-}" == "--allow-missing-xcode" ]] && allow_missing_xcode=true
 
+ruby ./scripts/test-build-assets.rb
 ./scripts/check-generated-assets.rb
 ./scripts/check-generated-project.rb
 ./scripts/validate-assets.sh
